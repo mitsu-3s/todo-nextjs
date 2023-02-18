@@ -6,14 +6,7 @@ import * as Yup from 'yup'
 import { IconDatabase } from '@tabler/icons'
 import { ShieldCheckIcon } from '@heroicons/react/solid'
 import { ExclamationCircleIcon } from '@heroicons/react/outline'
-import {
-    Anchor,
-    TextInput,
-    Button,
-    Group,
-    PasswordInput,
-    Alert,
-} from '@mantine/core'
+import { Anchor, TextInput, Button, Group, PasswordInput, Alert } from '@mantine/core'
 import { useForm, yupResolver } from '@mantine/form'
 import { Layout } from '@/components/Layout'
 import { AuthForm } from '../types'
@@ -39,13 +32,10 @@ const Home: NextPage = () => {
     const handleSubmit = async () => {
         try {
             if (isRegister) {
-                await axios.post(
-                    `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
-                    {
-                        email: form.values.email,
-                        password: form.values.password,
-                    }
-                )
+                await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
+                    email: form.values.email,
+                    password: form.values.password,
+                })
             }
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
                 email: form.values.email,
@@ -100,9 +90,7 @@ const Home: NextPage = () => {
                             setError('')
                         }}
                     >
-                        {isRegister
-                            ? 'Have an account? Login'
-                            : "Don't have an accout? Register"}
+                        {isRegister ? 'Have an account? Login' : "Don't have an accout? Register"}
                     </Anchor>
                     <Button
                         leftIcon={<IconDatabase size={14}></IconDatabase>}
