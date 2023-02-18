@@ -2,8 +2,8 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { Task } from '@prisma/client'
-import useStore from '@/store'
-import { EditedTask } from '@/types'
+import useStore from '../store'
+import { EditedTask } from '../types'
 
 export const useMutateTask = () => {
     const queryClient = useQueryClient()
@@ -12,12 +12,17 @@ export const useMutateTask = () => {
 
     const createTaskMutation = useMutation(
         async (task: Omit<EditedTask, 'id'>) => {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/todo`, task)
+            const res = await axios.post(
+                `${process.env.NEXT_PUBLIC_API_URL}/todo`,
+                task
+            )
             return res.data
         },
         {
             onSuccess: (res) => {
-                const previousTodos = queryClient.getQueryData<Task[]>(['tasks'])
+                const previousTodos = queryClient.getQueryData<Task[]>([
+                    'tasks',
+                ])
                 if (previousTodos) {
                     queryClient.setQueryData(['tasks'], [res, ...previousTodos])
                 }
@@ -25,7 +30,10 @@ export const useMutateTask = () => {
             },
             onError: (err: any) => {
                 reset()
-                if (err.response.status === 401 || err.response.status === 403) {
+                if (
+                    err.response.status === 401 ||
+                    err.response.status === 403
+                ) {
                     router.push('/')
                 }
             },
@@ -40,19 +48,26 @@ export const useMutateTask = () => {
             return res.data
         },
         {
-            onSuccess: (res, valiables) => {
-                const previousTodos = queryClient.getQueryData<Task[]>(['tasks'])
+            onSuccess: (res, variables) => {
+                const previousTodos = queryClient.getQueryData<Task[]>([
+                    'tasks',
+                ])
                 if (previousTodos) {
                     queryClient.setQueryData(
                         ['tasks'],
-                        previousTodos.map((task) => (task.id === res.id ? res : task))
+                        previousTodos.map((task) =>
+                            task.id === res.id ? res : task
+                        )
                     )
                 }
                 reset()
             },
             onError: (err: any) => {
                 reset()
-                if (err.response.status === 401 || err.response.status === 403) {
+                if (
+                    err.response.status === 401 ||
+                    err.response.status === 403
+                ) {
                     router.push('/')
                 }
             },
@@ -64,7 +79,9 @@ export const useMutateTask = () => {
         },
         {
             onSuccess: (_, variables) => {
-                const previousTodos = queryClient.getQueryData<Task[]>(['tasks'])
+                const previousTodos = queryClient.getQueryData<Task[]>([
+                    'tasks',
+                ])
                 if (previousTodos) {
                     queryClient.setQueryData(
                         ['tasks'],
@@ -75,11 +92,15 @@ export const useMutateTask = () => {
             },
             onError: (err: any) => {
                 reset()
-                if (err.response.status === 401 || err.response.status === 403) {
+                if (
+                    err.response.status === 401 ||
+                    err.response.status === 403
+                ) {
                     router.push('/')
                 }
             },
         }
     )
+
     return { createTaskMutation, updateTaskMutation, deleteTaskMutation }
 }

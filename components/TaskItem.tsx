@@ -2,8 +2,8 @@ import { FC } from 'react'
 import { List } from '@mantine/core'
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
 import { Task } from '@prisma/client'
-import useStore from '@/store'
-import { useMutateTask } from '@/hooks/useMutateTask'
+import useStore from '../store'
+import { useMutateTask } from '../hooks/useMutateTask'
 
 export const TaskItem: FC<Omit<Task, 'createdAt' | 'updatedAt' | 'userId'>> = ({
     id,
@@ -24,13 +24,13 @@ export const TaskItem: FC<Omit<Task, 'createdAt' | 'updatedAt' | 'userId'>> = ({
                             description,
                         })
                     }}
-                ></PencilAltIcon>
+                />
                 <TrashIcon
                     className="h-5 w-5 cursor-pointer text-blue-500"
                     onClick={() => {
                         deleteTaskMutation.mutate(id)
                     }}
-                ></TrashIcon>
+                />
             </div>
             <span>{title}</span>
         </List.Item>

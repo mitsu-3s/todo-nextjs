@@ -1,11 +1,11 @@
-import { useQueryTasks } from '@/hooks/useQueryTasks'
+import { useQueryTasks } from '../hooks/useQueryTasks'
 import { List, ThemeIcon, Loader } from '@mantine/core'
 import { IconCircleDashed } from '@tabler/icons'
 import { TaskItem } from './TaskItem'
 
 export const TaskList = () => {
     const { data: tasks, status } = useQueryTasks()
-    if (status === 'loading') return <Loader my="lg" color="cyan"></Loader>
+    if (status === 'loading') return <Loader my="lg" color="cyan" />
     return (
         <List
             my="lg"
@@ -13,7 +13,7 @@ export const TaskList = () => {
             size="sm"
             icon={
                 <ThemeIcon color="cyan" size={24} radius="xl">
-                    <IconCircleDashed size={16}></IconCircleDashed>
+                    <IconCircleDashed size={16} />
                 </ThemeIcon>
             }
         >
@@ -23,7 +23,7 @@ export const TaskList = () => {
                     id={task.id}
                     title={task.title}
                     description={task.description}
-                ></TaskItem>
+                />
             ))}
         </List>
     )

@@ -1,4 +1,4 @@
-import '@/styles/globals.css'
+import '../styles/globals.css'
 import { useEffect } from 'react'
 import type { AppProps } from 'next/app'
 import { MantineProvider } from '@mantine/core'
@@ -15,11 +15,13 @@ const queryClient = new QueryClient({
     },
 })
 
-export default function App({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
     axios.defaults.withCredentials = true
     useEffect(() => {
         const getCsrfToken = async () => {
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/csrf`)
+            const { data } = await axios.get(
+                `${process.env.NEXT_PUBLIC_API_URL}/auth/csrf`
+            )
             axios.defaults.headers.common['csrf-token'] = data.csrfToken
         }
         getCsrfToken()
@@ -40,3 +42,5 @@ export default function App({ Component, pageProps }: AppProps) {
         </QueryClientProvider>
     )
 }
+
+export default MyApp

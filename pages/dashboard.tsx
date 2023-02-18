@@ -1,12 +1,12 @@
-import { NextPage } from 'next'
+import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { LogoutIcon } from '@heroicons/react/solid'
-import { Layout } from '@/components/Layout'
-import { UserInfo } from '@/components/UserInfo'
+import { Layout } from '../components/Layout'
+import { UserInfo } from '../components/UserInfo'
 import { useQueryClient } from '@tanstack/react-query'
-import { TaskForm } from '@/components/TaskForm'
-import { TaskList } from '@/components/TaskList'
+import { TaskForm } from '../components/TaskForm'
+import { TaskList } from '../components/TaskList'
 
 const Dashboard: NextPage = () => {
     const router = useRouter()
@@ -22,10 +22,10 @@ const Dashboard: NextPage = () => {
             <LogoutIcon
                 className="mb-6 h-6 w-6 cursor-pointer text-blue-500"
                 onClick={logout}
-            ></LogoutIcon>
-            <UserInfo></UserInfo>
-            <TaskForm></TaskForm>
-            <TaskList></TaskList>
+            />
+            <UserInfo />
+            <TaskForm />
+            <TaskList />
         </Layout>
     )
 }

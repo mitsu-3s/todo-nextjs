@@ -1,4 +1,4 @@
-import { NextPage } from 'next'
+import type { NextPage } from 'next'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
@@ -6,9 +6,16 @@ import * as Yup from 'yup'
 import { IconDatabase } from '@tabler/icons'
 import { ShieldCheckIcon } from '@heroicons/react/solid'
 import { ExclamationCircleIcon } from '@heroicons/react/outline'
-import { Anchor, TextInput, Button, Group, PasswordInput, Alert } from '@mantine/core'
+import {
+    Anchor,
+    TextInput,
+    Button,
+    Group,
+    PasswordInput,
+    Alert,
+} from '@mantine/core'
 import { useForm, yupResolver } from '@mantine/form'
-import { Layout } from '@/components/Layout'
+import { Layout } from '../components/Layout'
 import { AuthForm } from '../types'
 
 const schema = Yup.object().shape({
@@ -32,10 +39,13 @@ const Home: NextPage = () => {
     const handleSubmit = async () => {
         try {
             if (isRegister) {
-                await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
-                    email: form.values.email,
-                    password: form.values.password,
-                })
+                await axios.post(
+                    `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
+                    {
+                        email: form.values.email,
+                        password: form.values.password,
+                    }
+                )
             }
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
                 email: form.values.email,
@@ -54,7 +64,7 @@ const Home: NextPage = () => {
                 <Alert
                     my="md"
                     variant="filled"
-                    icon={<ExclamationCircleIcon></ExclamationCircleIcon>}
+                    icon={<ExclamationCircleIcon />}
                     title="Authorization Error"
                     color="red"
                     radius="md"
@@ -68,17 +78,16 @@ const Home: NextPage = () => {
                     id="email"
                     label="Email*"
                     placeholder="example@gmail.com"
-                    autoComplete="off"
                     {...form.getInputProps('email')}
-                ></TextInput>
+                />
                 <PasswordInput
                     mt="md"
                     id="password"
                     placeholder="password"
                     label="Password*"
-                    description="Must be min 5 chars"
+                    description="Must be min 5 char"
                     {...form.getInputProps('password')}
-                ></PasswordInput>
+                />
                 <Group mt="xl" position="apart">
                     <Anchor
                         component="button"
@@ -90,10 +99,12 @@ const Home: NextPage = () => {
                             setError('')
                         }}
                     >
-                        {isRegister ? 'Have an account? Login' : "Don't have an accout? Register"}
+                        {isRegister
+                            ? 'Have an account? Login'
+                            : "Don't have an account? Register"}
                     </Anchor>
                     <Button
-                        leftIcon={<IconDatabase size={14}></IconDatabase>}
+                        leftIcon={<IconDatabase size={14} />}
                         color="cyan"
                         type="submit"
                     >
