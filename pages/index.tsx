@@ -78,6 +78,7 @@ const Home: NextPage = () => {
                     id="email"
                     label="Email*"
                     placeholder="example@gmail.com"
+                    autoComplete="off"
                     {...form.getInputProps('email')}
                 ></TextInput>
                 <PasswordInput
